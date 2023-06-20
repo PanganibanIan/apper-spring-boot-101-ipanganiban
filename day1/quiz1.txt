@@ -1,0 +1,9 @@
+1) Java Enterprise Edition
+2) Similar to a template, a boilerplate is a readaymade structure that helps developers to focus more on the implementation.
+3) Spring
+4) Pivotal Software
+5) https://start.spring.io/
+6) There is no need for web servers and lets the developer focus more on running the app.
+7,8,9) Dependency injection helps developers inject or use objects in another objects without much configuration.
+This helps to have a loosely coupled components to have a manageable app.
+10) mvn spring-boot:run
