@@ -1,6 +1,7 @@
 package com.apper.accountservice;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,6 +27,24 @@ public class AccountController {
 
         return response;
     }
+
+    @PutMapping("{accountId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UpdateAccountResponse updateAccount(@PathVariable String accountId, @RequestBody CreateAccountRequest request) {
+        Account account = accountService.update(accountId, request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());
+
+        UpdateAccountResponse response = new UpdateAccountResponse();
+        response.setLastUpdated(account.getLastUpdated());
+
+        return response;
+    }
+
+    @DeleteMapping("{accountId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAccount(@PathVariable String accountId) {
+       accountService.delete(accountId) ;
+    }
+
 
     @GetMapping("{accountId}")
     public GetAccountResponse getAccount(@PathVariable String accountId) {
