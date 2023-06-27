@@ -20,7 +20,11 @@ public class AccountService {
     public Account create(String firstName, String lastName, String userName, String clearPassword) {
         Account account = new Account() ;
 
-
+        for (Account accountchk : accounts) {
+            if (accountchk.getUserName().equals(userName)){
+                throw new UsernameAlreadyRegisteredException(userName + " Username already registered!") ;
+            }
+        }
         account.setId(idGeneratorService.getNextId());
         account.setBalance(1_000.0);
 
@@ -45,7 +49,7 @@ public class AccountService {
                 return account ;
             }
         }
-        return null;
+        throw new AccountNotFoundException("Account: " + accountId + " not found.");
     }
 
     public List<Account> getAll() {
