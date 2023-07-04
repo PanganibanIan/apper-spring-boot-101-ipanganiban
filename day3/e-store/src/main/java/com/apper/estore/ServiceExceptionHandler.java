@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.security.Provider;
+
 @ControllerAdvice
 public class ServiceExceptionHandler {
 
@@ -21,9 +23,12 @@ public class ServiceExceptionHandler {
                 .orElse(new ServiceError("Unknown invalid argument encountered"));
     }
 
+
     @ExceptionHandler(InvalidUserAgeException.class)
-    public ResponseEntity<String> handleInvalidUserAgeException(InvalidUserAgeException ex){
-        return ResponseEntity.badRequest().body(ex.getMessage()) ;
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ServiceError handleInvalidUserAgeException(InvalidUserAgeException ex){
+        return new ServiceError(ex.getMessage());
     }
 
 }
