@@ -21,17 +21,22 @@ public class BlogService {
     }
     public Blog createBlog(String title, String body, String bloggerId) {
 
-        for (Blogger blogger: bloggerRepository.findAll()){
-            if (blogger.getId().equals(bloggerId)){
-                Blog blog = new Blog();
-                blog.setTitle(title);
-                blog.setBody(body);
-                blog.setBloggerId(bloggerId) ;
+//        for (Blogger blogger: bloggerRepository.findAll()){
+//            if (blogger.getId().equals(bloggerId)){
 
-                return blogRepository.save(blog);
-            }
+//            }
+//        }
+
+        if (!bloggerRepository.existsById(bloggerId)){
+            throw new AccountNotFoundException("blogger_id: " + bloggerId + " does not exist.") ;
         }
-        throw new AccountNotFoundException("blogger_id: " + bloggerId + " does not exist.") ;
+        Blog blog = new Blog();
+        blog.setTitle(title);
+        blog.setBody(body);
+        blog.setBloggerId(bloggerId) ;
+
+        return blogRepository.save(blog);
+
     }
 
     public Blog getBlog(String id) {

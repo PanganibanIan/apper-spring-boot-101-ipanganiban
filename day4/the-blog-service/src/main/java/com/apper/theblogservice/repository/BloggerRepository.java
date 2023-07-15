@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BloggerRepository extends CrudRepository<Blogger, String> {
+
+    boolean existsByEmail(String email);
 }
